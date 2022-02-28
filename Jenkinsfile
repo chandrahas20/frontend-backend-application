@@ -1,7 +1,7 @@
 node{
      
     stage('SCM Checkout'){
-        git credentialsId: 'GIT_CREDENTIALS', url:  'https://github.com/postmanlabs/httpbin.git',branch: 'master'
+        git credentialsId: 'GIT_CREDENTIALS', url:  'https://github.com/chandrahas20/frontend-backend-application.git',branch: 'master'
     }
     
     stage(" Maven Clean Package"){
@@ -13,7 +13,7 @@ node{
     
     
     stage('Build Docker Image'){
-        sh 'docker build -t chandra20/spring-boot-mongo .'
+        sh 'docker build -t chandra20/spring-mongo .'
     }
     
     stage('Push Docker Image'){
@@ -26,4 +26,7 @@ node{
      stage("Deploy To Kuberates Cluster"){
        kubernetesDeploy(
          configs: 'springBootMongo.yml', 
-         kubeconf
+         kubeconfigId: 'KUBERNATES_CONFIG',
+            )
+     }
+            
